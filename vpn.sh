@@ -4,8 +4,10 @@ CONFIG_PATH="/etc/vpnconfigs/wg.conf"
 connect() {
     catch=$(sudo wg-quick up ${CONFIG_PATH} 2>&1 > /dev/null)
     if [ $? -eq 0 ]; then
+        sudo -u shash29 DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
         notify-send "VPN" "Connected successfully!"
     else
+	sudo -u shash29 DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
         notify-send "VPN" "Connecting error:\n${catch}"
     fi
 }
@@ -13,8 +15,10 @@ connect() {
 disconnect() {
     catch=$(sudo wg-quick down ${CONFIG_PATH} 2>&1 > /dev/null)
     if [ $? -eq 0 ]; then
+        sudo -u shash29 DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
 	notify-send "VPN" "Disconnected successfully!"
     else
+	sudo -u shash29 DISPLAY=:0 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
 	notify-send "VPN" "Disconnecting error:\n${catch}"
     fi
 }
